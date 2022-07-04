@@ -12,11 +12,11 @@ version: 2.1
       docker:
         - image: cimg/base:stable
     steps:
-      - run: exit 1
+      - run: return 1
       - run:
           name: on error
           command: echo " understand error"        
-  
+          when: on_fail
 workflows:
   my_workflow:
     jobs:    
