@@ -1,6 +1,5 @@
 version: 2.1
 
-
   commands:
     print_pipeline_id: 
     steps:
@@ -8,14 +7,12 @@ version: 2.1
           
           command: echo ${CIRCLE_WORKFLOW_ID}
          
-  
   jobs:
     my_job:
       docker:
         - image: cimg/base:stable
     steps:
       - print_pipeline_id:        
-  
   
 workflows:
   my_workflow:
