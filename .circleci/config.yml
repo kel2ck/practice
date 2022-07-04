@@ -1,0 +1,37 @@
+version: 2.1
+
+jobs:
+
+  say-hello:
+    docker:
+      - image: cimg/base:stable 
+    steps:
+      - checkout
+      - run:
+          name: "Say hello"
+          command: echo "Hello, World!"
+  
+  print-my-name:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - run: 
+          name: "print my name"          
+          command: echo ${My_Real_Name}
+  
+  print-phone-number:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - run:
+          name: "print phone nunmber"
+          command: echo ${My_Phone_Number} 
+
+workflows:
+  my-job-workflow:
+    jobs:    
+      - say-hello
+      - print-my-name:
+          requires:
+            - say-hello
+      - print-phone-number
