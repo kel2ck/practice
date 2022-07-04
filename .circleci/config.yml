@@ -2,36 +2,36 @@ version: 2.1
 
 jobs:
 
-  say-hello:
+  save_hello_world_output:
     docker:
       - image: cimg/base:stable 
     steps:
       - checkout
       - run:
           name: "Say hello"
-          command: echo "Hello, World!"
+          command: echo "Hello, World!" > ~/output.txt
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - output.txt    
   
-  print-my-name:
+  print_output_file:
     docker:
       - image: cimg/base:stable
     steps:
       - run: 
           name: "print my name"          
           command: echo ${My_Real_Name}
+      - attach_workspace:
+           at: ~/
+      - run: cat ~/output.txt         
   
-  print-phone-number:
-    docker:
-      - image: cimg/base:stable
-    steps:
-      - run:
-          name: "print phone nunmber"
-          command: echo ${My_Phone_Number} 
-
+  
 workflows:
-  my-job-workflow:
+  my_workflow:
     jobs:    
-      - say-hello
-      - print-my-name:
+      - save_hello_world_output
+      - print_output_file:
           requires:
-            - say-hello
-      - print-phone-number
+            - save_hello_world_output
+      
