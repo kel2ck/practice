@@ -12,7 +12,7 @@ version: 2.1
       docker:
         - image: circleci/node:13.8.0
     steps:
-      - run: return 1
+      - run: exit 1
       - run:
           name: on error
           command: echo " understand error"        
